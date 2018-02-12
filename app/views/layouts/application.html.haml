@@ -1,0 +1,34 @@
+!!!
+%html
+  %head
+    = display_meta_tags title: "Remote Ruby on Rails jobs"
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+    %meta{ "charset" => "utf-8" }
+    %meta{ "http-equiv" => "X-UA-Compatible", "content" => "IE=edge" }
+    %meta{ "name" => "viewport", "content" => "width=device-width, initial-scale=1" }
+  %body
+    :javascript
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-4264346-10', 'auto');
+      ga('send', 'pageview');
+    .header.container
+      .row
+        %h1.text-center
+          = link_to "RailsRemote.com", root_path
+          %small Remote Ruby on Rails jobs
+      .row
+        .col-md-offset-1.col-md-10
+          = link_to "Post a New Job", new_job_path, class: 'pull-right post-new'
+
+
+    .container
+      - flash.each do |name, message|
+        - type = name.to_s == 'notice' ? 'success' : 'error'
+        = render 'shared/alert', type: type, highlight: '', text: message
+      = yield

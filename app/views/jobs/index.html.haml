@@ -9,14 +9,15 @@
           %strong remote jobs.
       .menu.text-center
         - ["All Jobs", "Long Term", "Project"].each do |job_type|
-          - if params[:job_type] == job_type
-            %span.current
-              = quick_job_icon OpenStruct.new(job_type: job_type)
-              = job_type
-          - else
-            = link_to url_for(params.merge(job_type: job_type)) do
-              = quick_job_icon OpenStruct.new(job_type: job_type)
-              = job_type
+          - if params[:job_type].present?
+            - if params[:job_type] == job_type
+              %span.current
+                = quick_job_icon OpenStruct.new(job_type: job_type)
+                = job_type
+            - else
+              = link_to url_for(params.merge(job_type: job_type)) do
+                = quick_job_icon OpenStruct.new(job_type: job_type)
+                = job_type
       .list-group
         = render partial: 'quick_job', collection: @jobs, as: :job
 

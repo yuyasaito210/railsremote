@@ -1,4 +1,4 @@
-class TweakJobFields < ActiveRecord::Migration
+class TweakJobFields < ActiveRecord::Migration[5.1]
   def change
     remove_column :jobs, :employees_in
     add_column :jobs, :timezone_preferences, :text

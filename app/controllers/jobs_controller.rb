@@ -1,5 +1,6 @@
 class JobsController < ApplicationController
   def index
+    Rails.logger.info "params = #{params.inspect}"
     @jobs = Job.visible.filtered(params[:job_type]).newest_first
   end
 

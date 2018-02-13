@@ -47,7 +47,14 @@ gem 'reverse_markdown'
 # gem 'rails-assets-bootstrap', '~> 3.3.1'
 gem 'bootstrap-sass', '3.3.7'
 gem 'bootstrap-material-design'
+gem 'font-awesome-sass'
 gem 'meta-tags'
+
+gem 'intercom-rails'
+
+gem 'swiftype'
+gem 'delayed_job', '~> 4.1.3'
+gem 'delayed_job_active_record', '~> 4.1.2'
 
 group :development, :test do
   gem 'pry'
@@ -64,4 +71,10 @@ group :development, :test do
   gem 'capybara', '~> 2.6.2'
   gem 'launchy', '~> 2.1' # save_and_open_page
 end
+
+# Manage rails environment variable
+gem 'figaro'
+# Support Elasticsearch 
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 

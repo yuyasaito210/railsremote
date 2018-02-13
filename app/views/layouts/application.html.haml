@@ -4,10 +4,13 @@
     = display_meta_tags title: "Remote Ruby on Rails jobs"
     = stylesheet_link_tag    'application', media: 'all'
     = javascript_include_tag 'application'
+    = javascript_include_tag 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDuvbfwbcKkTakTU5h_ypqrA3ct-UtbuUY&libraries=places'
     = csrf_meta_tags
     %meta{ "charset" => "utf-8" }
     %meta{ "http-equiv" => "X-UA-Compatible", "content" => "IE=edge" }
     %meta{ "name" => "viewport", "content" => "width=device-width, initial-scale=1" }
+    %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans", :rel => "stylesheet"}/
+    
   %body
     :javascript
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -17,18 +20,25 @@
 
       ga('create', 'UA-4264346-10', 'auto');
       ga('send', 'pageview');
-    .header.container
+      
+      
+    .header.container.logo-container
       .row
-        %h1.text-center
-          = link_to "RailsRemote.com", root_path
-          %small Remote Ruby on Rails jobs
-      .row
-        .col-md-offset-1.col-md-10
-          = link_to "Post a New Job", new_job_path, class: 'pull-right post-new'
+        = link_to root_path do
+          = image_tag 'tomash-logo.png', width: 350, height: 65, class: "logo", alt: 'a face that is unnervingly happy'
+      
 
 
     .container
       - flash.each do |name, message|
         - type = name.to_s == 'notice' ? 'success' : 'error'
         = render 'shared/alert', type: type, highlight: '', text: message
+
+      .row
+        %form(method="get" action="/jobs" class="input-group stylish-input-group")
+          %input.form-control{placeholder: "Job Title", type: "text", name: "q", class: "stylish-input", id: "st-search-input", autocomplete: "off", value: if @job_title then @job_title else "" end}/
+          %span.input-group-addon
+            %button{type: "submit", class: "search-button"}
+              %span.glyphicon.glyphicon-circle-arrow-right
+
       = yield

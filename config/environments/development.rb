@@ -35,7 +35,19 @@ Rails.application.configure do
   # Checks for improperly declared sprockets dependencies.
   # Raises helpful error messages.
   config.assets.raise_runtime_errors = true
-
+  #config.action_mailer.default_url_options = { :host => "https://mysterious-castle-96346.herokuapp.com" }
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  config.action_mailer.delivery_method = :smtp
+  # SMTP settings for gmail
+  config.action_mailer.smtp_settings = {
+    :address              => ENV['SMTP_DOMAIN_ADDRESS'],
+    :port                 => ENV['SMTP_DOMAIN_PORT'],
+    :domain               => ENV['SMTP_DOMAIN'] || 'localhost',
+    :user_name            => ENV['SMTP_SENDER_EMAIL_ADDRESS'],
+    :password             => ENV['SMTP_SENDER_EMAIL_PASSWORD'],
+    :authentication       => ENV['SMTP_EMAIL_AUTHENTICATION'],
+    :enable_starttls_auto => true
+  }
 end

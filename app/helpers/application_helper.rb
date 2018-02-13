@@ -8,6 +8,10 @@ module ApplicationHelper
     )
     @markdown.render(text).html_safe
   end
+
+  def url_with_protocol(url)
+    /^http/i.match(url) ? url : "http://#{url}"
+  end
 end
 
 class MyCarpet < Redcarpet::Render::HTML

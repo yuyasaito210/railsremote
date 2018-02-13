@@ -1,4 +1,9 @@
+require 'elasticsearch/model'
+
 class Job < ActiveRecord::Base
+  include Elasticsearch::Model
+  include Elasticsearch::Model::Callbacks
+
   TYPES = {
     "--Select Job Type--" => "Unspecified",
     "Long Term" => "Long Term",
@@ -11,6 +16,9 @@ class Job < ActiveRecord::Base
   scope :newest_first, ->{ order("jobs.created_at DESC") }
 
   before_create :generate_token
+
+  after_save :enqueue_create_or_update_document_job
+  after_destroy :enqueue_delete_document_job
 
   def self.filtered(type)
     if type.in?(TYPES.values)
@@ -69,9 +77,23 @@ class Job < ActiveRecord::Base
     new(description: default_text.gsub('      ', ''))
   end
 
+  def as_indexed_json(options = {})
+    self.as_json(
+      only: [:id, :title, :job_type, :description, :location, :published]
+    )
+  end 
+
 private
 
   def generate_token
     self.token ||= SecureRandom.hex(100)
+  end
+
+  def enqueue_create_or_update_document_job
+    Delayed::Job.enqueue CreateOrUpdateSwiftypeDocumentJob.new(self.id)
+  end
+
+  def enqueue_delete_document_job
+    Delayed::Job.enqueue DeleteSwiftypeDocumentJob.new(self.id)
   end
 end

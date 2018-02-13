@@ -1,84 +1,48 @@
-.bs-docs-section.test-job-form
-  .row
-    .col-md-offset-1.col-md-10
-      .well.bs-component.clearfix
-        .col-md-offset-1.col-md-10
-          = form_for job, html: { class: 'js-form material-form' } do |f|
-            = hidden_field_tag :token, params[:token]
+.row
+  .col-md-offset-1.col-md-10
+    .well.bs-component.clearfix.form-newpost
+      %form#new_job.new_job{"accept-charset" => "UTF-8", :action => "/jobs", :method => "post"}
+        %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+        %input{:name => "authenticity_token", :type => "hidden", :value => "CvHXz8XQMOlEbhFjFUbUqDJ+4nnjrYuikFFAscyNWVzfTLcmkc03gTaoph6PH5nZtwDu7pGOvhnReNdg7qj8xQ=="}/
+        %input#token{:name => "token", :type => "hidden"}/
+        %fieldset
+          %legend.no-sep Tell us about the job
+          .row
+            .col-md-6.form-group
+              .mb-3
+                %input#job_title.form-control{:name => "job[title]", :placeholder => "Job Title", :required => "required", :type => "text"}/
+            .col-md-6.form-group
+              .mb-3
+                %select#job_job_type.form-control{:name => "job[job_type]"}
+                  %option{:value => "Unspecified"} Select Job Type
+                  %option{:value => "Contract C2C"} Contract C2C
+                  %option{:value => "Full-Time"} Full-Time
+                  %option{:value => "Internship"} Internship
+          .form-group
+            %label
+              Description
+            %textarea#job_description.form-control{:name => "job[description]", :required => "required", :rows => "15"}
 
-            %fieldset
-              %legend Tell us about the job
-              - # this is a spam trap, users should not see not fill in this field
-              .form-group{style: "height: 0; position: absolute; left: -9000px"}
-                .form-control-wrapper
-                  = text_field_tag :honey, nil, class: 'form-control input-lg', tabindex: "-1"
-                  .floating-label Leave this blank
+        %fieldset
+          %legend.no-sep
+            Tell us about the company
+          .row
+            .col-md-6.form-group
+              .mb-3
+                %input#job_company_name.form-control{:name => "job[company_name]", :placeholder => "Company Name", :required => "required", :type => "text"}/
+            .col-md-6.form-group
+              .mb-3
+                %input#job_company_location.form-control{:name => "job[location]", :placeholder => "Location", :required => "required", :type => "text"}/
+          .row
+            .col-md-6.form-group
+              .mb-3
+                %input#job_company_url.form-control{:name => "job[company_url]", :placeholder => "Website URL", :type => "text"}/
+            .col-md-6.form-group
+              .mb-3
+                %input#job_email.form-control{:name => "job[email]", :placeholder => "Email", :required => "required", :type => "email"}/
 
-              .form-group
-                .form-control-wrapper
-                  = f.text_field :title, class: 'form-control input-lg', required: :required
-                  .floating-label Job Title
-
-
-              .form-group
-                .form-control-wrapper
-                  = f.select :job_type, Job::TYPES, {}, class: 'form-control'
-
-              .form-group
-                .form-control-wrapper
-                  = f.text_area :description, class: 'form-control', rows: 15, required: :required
-                  .hint Explain what the job entails
-                  .floating-label
-                    Description (Markdown enabled)
-
-              .form-group
-                .form-control-wrapper
-                  = f.text_area :timezone_preferences, class: 'form-control', rows: 3
-                  .hint List any Time Zone Preferences e.g. 'should be able to work during US business hours'
-                  .floating-label
-                    Time Zone Preferences (Markdown enabled)
-
-              .form-group
-                .form-control-wrapper
-                  = f.text_area :how_to_apply, class: 'form-control', rows: 3, required: :required
-                  .floating-label
-                    How To Apply (Markdown enabled)
-                  .hint e.g. send an email to person@example.com with a CV attached
-
-            %fieldset
-              %legend Tell us about the company
-              .form-group
-                .form-control-wrapper
-                  = f.text_field :company_name, class: 'form-control', required: :required
-                  .floating-label Company Name
-
-              .form-group
-                .form-control-wrapper
-                  = f.text_field :company_url, class: 'form-control'
-                  .hint Where can a canidate find out more about the company? e.g. http://example.com.
-                  .floating-label Website URL
-
-              .form-group
-                .form-control-wrapper
-                  = f.text_field :email, type: :email, class: 'form-control', required: :required
-                  .hint We'll need this to authorize you to edit the job post later
-                  .floating-label Email
-
-              .form-group
-                .form-control-wrapper
-                  .checkbox
-                    = f.label :agencies_ok do
-                      = f.check_box :agencies_ok
-                      %span.ripple
-                      %span.check
-                      It's ok for recruitment agencies to contact us
-
-
-
-
-            .form-group.text-center
-              - if session[:admin] && job.persisted?
-                = link_to "Admin Delete", admin_job_path(job), method: :delete, class: 'btn btn-raised btn-danger', data: { confirm: "Delete?" }
-              = f.submit "Save and Continue", class: 'btn btn-default btn-raised'
-              = f.submit "Preview", class: 'btn btn-success btn-raised'
-
+        .row.new-jobs-save
+          .col-md-6.form-group.text-center
+            %input.btn.btn-success.btn-raised{:name => "commit", :type => "submit", :value => "Preview", :id => "preview"}/
+          .col-md-6.form-group.text-center
+            %input.btn.btn-default.btn-raised{:name => "commit", :type => "submit", :value => "Save and Continue", :id => "save-continue"}/

@@ -1,17 +1,21 @@
-.list-group-item
-  .row-action-primary
-    = quick_job_icon job
+%tr
+  %td.description-container.col-md-10.col-sm-10.col-xs-12
+    .description
+      %span.home-job-title
+        = link_to job.title, job
+      %span.home-job-city
+        | 
+        = job.location
+      %span.home-job-company
+        = link_to job.company_name, url_with_protocol(job.company_url), target: "_blank"
+        - if params[:controller] == 'admin_jobs'
+          %p
+            = link_to "Edit", edit_job_path(job, token: job.token)
+            = link_to "Delete", admin_job_path(job), method: :delete, class: 'text-warning', data: { confirm: "Delete?" }
+  %td.home-date.col-md-2.col-sm-2.hidden-xs
+    %span.date
+      = "#{job.created_at.strftime('%B %e')}"
 
-  .row-content
-    .least-content.hidden-xs= "Posted #{job.created_at.strftime('%B %e, %Y')}"
-    %h4.list-group-item-heading= link_to job.title, job
-    = puts job.company_url
-    %p.list-group-item-text
-      = link_to_if job.company_url.present?, job.company_name, job.company_url, target: '_blank'
-      - if job.timezone_preferences.present?
-        %small.text-muted.hidden-xs.ellipsis= job.timezone_preferences.lines.first
-      - if params[:controller] == 'admin_jobs'
-        %p
-          = link_to "Edit", edit_job_path(job, token: job.token)
-          = link_to "Delete", admin_job_path(job), method: :delete, class: 'text-warning', data: { confirm: "Delete?" }
-.list-group-separator
+
+
+

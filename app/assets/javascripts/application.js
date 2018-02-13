@@ -18,3 +18,13 @@
 
 
 $.material.init()
+
+$(function() {
+  $('#st-search-input').swiftype({
+    engineKey: 'Q-J6nJxatxJxpGsxW9uQ',
+    resultLimit: 20
+  });
+  
+});
+
+console.log('test');

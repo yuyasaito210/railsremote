@@ -9,7 +9,7 @@ class AdminJobsController < ApplicationController
   def update
     job = Job.find(params[:id])
     job.update_column(:visible_until, 1.month.from_now)
-    redirect_to :back, notice: "Visible until #{job.visible_until}"
+    redirect_back fallback_location: root_path, notice: "Visible until #{job.visible_until}"
   end
 
   def destroy

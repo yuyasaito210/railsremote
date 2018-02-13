@@ -1,7 +1,22 @@
 class JobsController < ApplicationController
   def index
-    Rails.logger.info "params = #{params.inspect}"
-    @jobs = Job.visible.filtered(params[:job_type]).newest_first
+    if params[:q].present?
+      @job_title = params[:q]
+      # client = Swiftype::Client.new
+      # @results = client.search(ENV['SWIFTYPE_ENGINE_SLUG'], params[:q])
+      @results = Job.search(params[:q]).records
+
+      if @results.size > 0
+        result_jobs_ids = @results.collect{|job| job['id']}
+        # @jobs = @results
+        @jobs = @results.newest_first
+      else
+        @jobs = nil
+      end
+    else
+      @job_title = nil
+      @jobs = Job.filtered(params[:q]).newest_first
+    end
   end
 
   def show
@@ -34,6 +49,10 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
     return render text: "Success", status: :ok if params[:honey].present?
     if @job.save
+      # Sends email to user when user is created.
+      Rails.logger.info "@job: #{@job.inspect}"
+      JobMailer.job_email(@job).deliver
+
       handle_success
     else
       render action: :edit
@@ -59,9 +78,9 @@ private
     job_params = params.require(:job).permit(
         :token, :title, :job_type, :company_name, :salary,
         :company_url, :email, :description, :how_to_apply,
-        :agencies_ok, :timezone_preferences
+        :agencies_ok, :timezone_preferences, :location
     )
-    job_params.merge!(published: params[:commit] != "Preview")
+    job_params.permit.merge!(published: params[:commit] != "Preview")
     job_params
   end
 

@@ -77,4 +77,7 @@ gem 'figaro'
 # Support Elasticsearch 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
-
+# Intelligent search
+gem 'searchkick'
+# Pagenate
+gem "will_paginate"

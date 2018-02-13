@@ -2,20 +2,17 @@ class JobsController < ApplicationController
   def index
     if params[:q].present?
       @job_title = params[:q]
-      # client = Swiftype::Client.new
-      # @results = client.search(ENV['SWIFTYPE_ENGINE_SLUG'], params[:q])
-      @results = Job.search(params[:q]).records
+      @results = Job.search(params[:q], fields: [:title]).records
 
       if @results.size > 0
         result_jobs_ids = @results.collect{|job| job['id']}
-        # @jobs = @results
-        @jobs = @results.newest_first
+        @jobs = @results.newest_first.paginate(page: params[:page], per_page: 7)
       else
         @jobs = nil
       end
     else
       @job_title = nil
-      @jobs = Job.filtered(params[:q]).newest_first
+      @jobs = Job.filtered(params[:q]).newest_first.paginate(page: params[:page], per_page: 7)
     end
   end
 

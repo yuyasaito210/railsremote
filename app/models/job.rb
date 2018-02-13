@@ -1,9 +1,6 @@
-require 'elasticsearch/model'
-
 class Job < ActiveRecord::Base
-  include Elasticsearch::Model
-  include Elasticsearch::Model::Callbacks
-
+  searchkick
+  
   TYPES = {
     "--Select Job Type--" => "Unspecified",
     "Long Term" => "Long Term",

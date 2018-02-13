@@ -1,11 +1,12 @@
 .row
   .col-md-offset-1.col-md-10
     .well.bs-component
+      = will_paginate @jobs
       %table.table
         %tbody
           = render partial: 'quick_job', collection: @jobs, as: :job
-      
+
       = link_to new_job_path, class: 'pull-right post-new plusBtn bigGlobalBtn' do
         %span
 
-
+      

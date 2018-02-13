@@ -9,6 +9,7 @@
         %span
         
       .text-center
-        = will_paginate @jobs
+        - if @jobs
+          = paginate @jobs
 
       

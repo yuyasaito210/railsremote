@@ -81,3 +81,4 @@ gem 'elasticsearch-rails'
 gem 'searchkick'
 # Pagenate
 gem "will_paginate"
+gem 'kaminari'

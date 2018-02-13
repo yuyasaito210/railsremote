@@ -13,4 +13,7 @@
         %table.table
           %tbody
             = render partial: 'jobs/quick_job', collection: @jobs, as: :job
+        .text-center
+          = paginate @jobs
+
 

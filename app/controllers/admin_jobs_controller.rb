@@ -2,7 +2,7 @@ class AdminJobsController < ApplicationController
   http_basic_authenticate_with name: "superuser", password: ENV['ADMIN_PASSWORD']
 
   def index
-    @jobs = Job.newest_first.with_admin_scope(params[:scope])
+    @jobs = Job.newest_first.with_admin_scope(params[:scope]).page(params[:page]).per_page(4)
     session[:admin] = true
   end
 

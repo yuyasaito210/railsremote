@@ -2,17 +2,26 @@ class JobsController < ApplicationController
   def index
     if params[:q].present?
       @job_title = params[:q]
-      @results = Job.search(params[:q], fields: [:title]).records
-
-      if @results.size > 0
-        result_jobs_ids = @results.collect{|job| job['id']}
-        @jobs = @results.newest_first.paginate(page: params[:page], per_page: 7)
+      # @results = Job.search(params[:q], fields: [:title, :location]).records
+      keywords = separate_title_and_location
+      if keywords[1]
+        # Search in each other fields
+        @results = Job.search(keywords[0], fields: [:title]).records & Job.search(keywords[1], fields: [:location]).records
+        if @results.size > 0
+          result_jobs_ids = @results.collect{|job| job['id']}
+          @jobs = Kaminari.paginate_array(@results).page(params[:page]).per(7)
+        else
+          @jobs = nil
+        end
       else
-        @jobs = nil
+        # Search in title and location
+        @results = Job.search(keywords[0], fields: [:title, :location]).records
+        result_jobs_ids = @results.collect{|job| job['id']}
+        @jobs = @results.page(params[:page]).per_page(7)
       end
     else
       @job_title = nil
-      @jobs = Job.filtered(params[:q]).newest_first.paginate(page: params[:page], per_page: 7)
+      @jobs = Job.filtered(params[:q]).page(params[:page]).per_page(7)
     end
   end
 
@@ -87,5 +96,9 @@ private
     else
       redirect_to job_path(@job, token: @job.token)
     end
+  end
+
+  def separate_title_and_location
+    params[:q].split(' in ') 
   end
 end

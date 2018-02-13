@@ -11,4 +11,8 @@ module JobsHelper
       end
     content_tag :i, nil, class: css_class, title: "Job type: #{job.job_type}"
   end
+
+  def select_job_type(control_type, job_type)
+    control_type == job_type ? 'selected' : 'none'
+  end
 end

@@ -42,7 +42,10 @@ small a {
 }
 
 .menu a, .current {
-  padding-right: 2em;
+  padding: 6px 10px;
+  background-color: #337ab7;
+  color: white;
+  font-size: 14px;
 }
 
 .ellipsis {

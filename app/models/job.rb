@@ -17,6 +17,29 @@ class Job < ActiveRecord::Base
   after_save :enqueue_create_or_update_document_job
   after_destroy :enqueue_delete_document_job
 
+
+  def self.separate_title_and_location(query)
+    query = query.downcase
+    query = query.remove('jobs')
+    query = query.remove('job')
+    query = query.split(' in ')
+  end
+
+  def self.intelligence_search(query)
+    keywords = Job.separate_title_and_location(query)
+
+    results = nil
+    keywords.each do |keyword|
+      result = Job.search(keyword, fields: [:title, :job_type, :location]).records if !keyword.blank?
+
+      if result
+        results &= result if results
+        results = result unless results
+      end
+    end
+    results
+  end
+
   def self.filtered(type)
     if type.in?(TYPES.values)
       where(job_type: type)

@@ -2,7 +2,7 @@
   %td.description-container.col-md-10.col-sm-10.col-xs-12
     .description
       %span.home-job-title
-        = link_to job.title, job
+        = link_to job.title, admin_job_path(job)
       %span.home-job-city
         | 
         = job.location
@@ -10,7 +10,9 @@
         = job.job_type
         = " job in "
         = link_to job.company_name, url_with_protocol(job.company_url), target: "_blank"
-
+        %p
+          = link_to "Edit", edit_admin_job_path(job, token: job.token)
+          = link_to "Delete", admin_job_path(job, token: job.token), method: :delete, class: 'text-warning', data: { confirm: "Delete?" }
   %td.home-date.col-md-2.col-sm-2.hidden-xs
     %span.date
       = "#{job.updated_at.strftime('%B %e %y')}"

@@ -6,7 +6,7 @@ class JobsController < ApplicationController
       @jobs = Kaminari.paginate_array(results).page(params[:page]).per(7)
     else
       @job_title = nil
-      @jobs = Job.filtered(params[:q]).page(params[:page]).per_page(7)
+      @jobs = Job.filtered(params[:q]).page(params[:page]).per_page(7).newest_first
     end
   end
 

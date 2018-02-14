@@ -12,8 +12,6 @@
       .list-group.admin-jobs
         %table.table
           %tbody
-            = render partial: 'jobs/quick_job', collection: @jobs, as: :job
+            = render partial: 'quick_job', collection: @jobs, as: :job
         .text-center
           = paginate @jobs
-
-

@@ -20,9 +20,11 @@ class Job < ActiveRecord::Base
 
   def self.separate_title_and_location(query)
     query = query.downcase
-    query = query.remove('jobs')
-    query = query.remove('job')
-    query = query.split(' in ')
+    query = query.gsub(' jobs ', ' ')
+    query = query.gsub(' job ', ' ')
+    query = query.gsub(' in ', ' ')
+    query = query.gsub(' at ', ' ')
+    query = query.split(' ')
   end
 
   def self.intelligence_search(query)
@@ -30,7 +32,7 @@ class Job < ActiveRecord::Base
 
     results = nil
     keywords.each do |keyword|
-      result = Job.search(keyword, fields: [:title, :job_type, :location]).records if !keyword.blank?
+      result = Job.search(keyword, fields: [:title, :job_type, :location, :company_name]).records if !keyword.blank?
 
       if result
         results &= result if results

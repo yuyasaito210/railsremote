@@ -34,8 +34,6 @@
 
         %p= md @job.description
 
-
-            
         .row.apply-job
           .pa-box
             %span.box-title
@@ -47,21 +45,12 @@
               Its not ok for recruitment agencies to contact us.
                 
         .row.marg-20
-          - if params[:token] == @job.token
-            .text-center
-              - if session[:admin] && @job.persisted?
-                = link_to "Admin Delete", admin_job_path(@job), method: :delete, class: 'btn btn-raised btn-danger', data: { confirm: "Delete?" }
-                = link_to "Admin Publish", admin_job_path(@job), method: :put, class: 'btn btn-raised btn-warning'
-              = link_to "Edit the Job", edit_job_path(@job, token: params[:token]), class: 'btn btn-default btn-raised'
-              - if !@job.published?
-                = link_to "All good, make it live", job_path(@job, job: {published: true}, token: params[:token]), class: 'btn btn-success btn-raised', method: :patch
-          - else
-            - if @job.next_visible
-              = link_to "Next Job: #{@job.next_visible.full_title} →", job_path(@job.next_visible), class: 'pull-right', rel: 'next'
+          - if @job.next_visible
+            = link_to "Next Job: #{@job.next_visible.full_title} →", job_path(@job.next_visible), class: 'pull-right', rel: 'next'
 
-            - if @job.prev_visible
-              %span
-                = image_tag 'arrow-left.png', class: "arrow"
-              %span.arrow-text
-                = link_to "Previous Job: #{@job.prev_visible.full_title}", job_path(@job.prev_visible), rel: 'prev'
+          - if @job.prev_visible
+            %span
+              = image_tag 'arrow-left.png', class: "arrow"
+            %span.arrow-text
+              = link_to "Previous Job: #{@job.prev_visible.full_title}", job_path(@job.prev_visible), rel: 'prev'
         

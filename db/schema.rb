@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171211050514) do
+ActiveRecord::Schema.define(version: 20180214150810) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,7 @@ ActiveRecord::Schema.define(version: 20171211050514) do
     t.text "timezone_preferences"
     t.boolean "agencies_ok", default: false, null: false
     t.string "location"
+    t.string "resume"
   end
 
 end

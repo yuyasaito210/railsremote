@@ -3,7 +3,11 @@ class JobsController < ApplicationController
     if params[:q].present?
       @job_title = params[:q]
       results = Job.intelligence_search(params[:q])
-      @jobs = Kaminari.paginate_array(results).page(params[:page]).per(7)
+      if @jobs
+        @jobs = Kaminari.paginate_array(results).page(params[:page]).per(7)
+      else
+        @jobs = @jobs = Job.filtered(params[:q]).page(params[:page]).per_page(7).newest_first
+      end
     else
       @job_title = nil
       @jobs = Job.filtered(params[:q]).page(params[:page]).per_page(7).newest_first
@@ -69,7 +73,8 @@ private
     job_params = params.require(:job).permit(
         :token, :title, :job_type, :company_name, :salary,
         :company_url, :email, :description, :how_to_apply,
-        :agencies_ok, :timezone_preferences, :location
+        :agencies_ok, :timezone_preferences, :location,
+        :resume
     )
     job_params.permit.merge!(published: params[:commit] != "Preview")
     job_params

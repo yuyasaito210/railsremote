@@ -26,7 +26,6 @@
       .row
         = link_to root_path do
           = image_tag 'tomash-logo.png', width: 350, height: 65, class: "logo", alt: 'a face that is unnervingly happy'
-      
 
 
     .container
@@ -35,18 +34,10 @@
         = render 'shared/alert', type: type, highlight: '', text: message
 
       .row
-        - if session[:admin]
-          %form(method="get" action="/admin_jobs" class="input-group stylish-input-group")
-            %input.form-control{placeholder: "Job Title", type: "text", name: "q", class: "stylish-input", id: "st-search-input", autocomplete: "off", value: if @job_title then @job_title else "" end}/
-            %span.input-group-addon
-              %button{type: "submit", class: "search-button"}
-                %span.glyphicon.glyphicon-circle-arrow-right
-
-        - else
-          %form(method="get" action="/jobs" class="input-group stylish-input-group")
-            %input.form-control{placeholder: "Job Title", type: "text", name: "q", class: "stylish-input", id: "st-search-input", autocomplete: "off", value: if @job_title then @job_title else "" end}/
-            %span.input-group-addon
-              %button{type: "submit", class: "search-button"}
-                %span.glyphicon.glyphicon-circle-arrow-right
+        %form(method="get" action="/jobs" class="input-group stylish-input-group")
+          %input.form-control{placeholder: "Job Title", type: "text", name: "q", class: "stylish-input", id: "st-search-input", autocomplete: "off", value: if @job_title then @job_title else "" end}/
+          %span.input-group-addon
+            %button{type: "submit", class: "search-button"}
+              %span.glyphicon.glyphicon-circle-arrow-right
 
       = yield

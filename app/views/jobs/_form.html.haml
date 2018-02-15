@@ -1,7 +1,7 @@
 .row
   .col-md-offset-1.col-md-10
     .well.bs-component.clearfix.form-newpost
-      %form#new_job.new_job{"accept-charset" => "UTF-8", :action => "/jobs", :method => "post"}
+      %form#new_job.new_job{"accept-charset" => "UTF-8", :action => "/jobs", :method => "post", :enctype => "multipart/form-data"}
         %input{:name => "utf8", :type => "hidden", :value => "✓"}/
         %input{:name => "authenticity_token", :type => "hidden", :value => "CvHXz8XQMOlEbhFjFUbUqDJ+4nnjrYuikFFAscyNWVzfTLcmkc03gTaoph6PH5nZtwDu7pGOvhnReNdg7qj8xQ=="}/
         %input#token{:name => "token", :type => "hidden"}/
@@ -42,6 +42,12 @@
             .col-md-6.form-group
               .mb-3
                 %input#job_email.form-control{:name => "job[email]", :placeholder => "Email", :required => "required", :type => "email", :value => job.email}/
+          .row
+            .col-md-6.form-group
+              %legend.no-sep
+                = "Resume"
+              %label
+                = file_field_tag "job[resume]"
 
         .row.new-jobs-save
           .col-md-6.form-group.text-center

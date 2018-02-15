@@ -1,6 +1,7 @@
 class Job < ActiveRecord::Base
   searchkick
-  
+  mount_uploader :resume, ResumeUploader
+
   TYPES = {
     "--Select Job Type--" => "Unspecified",
     "Long Term" => "Long Term",
@@ -20,8 +21,9 @@ class Job < ActiveRecord::Base
 
   def self.separate_title_and_location(query)
     query = query.downcase
-    query = query.gsub(' jobs ', ' ')
-    query = query.gsub(' job ', ' ')
+    query = query.gsub('jobs', ' ')
+    query = query.gsub('job', ' ')
+    query = query.gsub('  ', ' ')
     query = query.gsub(' in ', ' ')
     query = query.gsub(' at ', ' ')
     query = query.split(' ')

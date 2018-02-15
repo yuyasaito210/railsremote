@@ -82,3 +82,5 @@ gem 'searchkick'
 # Pagenate
 gem "will_paginate"
 gem 'kaminari'
+# File upload
+gem 'carrierwave'

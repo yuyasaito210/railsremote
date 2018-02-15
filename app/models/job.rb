@@ -35,7 +35,6 @@ class Job < ActiveRecord::Base
     results = nil
     keywords.each do |keyword|
       result = Job.search(keyword, fields: [:title, :job_type, :location, :company_name]).records if !keyword.blank?
-
       if result
         results &= result if results
         results = result unless results

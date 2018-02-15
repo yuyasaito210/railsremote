@@ -77,6 +77,7 @@ gem 'figaro'
 # Support Elasticsearch 
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem 'bonsai-elasticsearch-rails'
 # Intelligent search
 gem 'searchkick'
 # Pagenate

@@ -3,10 +3,10 @@ class JobsController < ApplicationController
     if params[:q].present?
       @job_title = params[:q]
       results = Job.intelligence_search(params[:q])
-      if @jobs
+      if results && results.size > 0
         @jobs = Kaminari.paginate_array(results).page(params[:page]).per(7)
       else
-        @jobs = @jobs = Job.filtered(params[:q]).page(params[:page]).per_page(7).newest_first
+        @jobs = nil
       end
     else
       @job_title = nil

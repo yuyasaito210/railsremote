@@ -13,8 +13,8 @@
 /tmp
 
 .DS_Store
-config/database.yml
-config/secrets.yml
+/config/database.yml
+/config/secrets.yml
 
 
 # Ignore application configuration

@@ -26,6 +26,13 @@ body .container .well {
   
 }
 
+body .container .show_job {
+  border-radius: 0px !important;
+  box-shadow: 0 0 0 0 !important;
+  -webkit-box-shadow: 0 0 0 0 !important;
+  
+}
+
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Lucida Sans Unicode" !important;
 }
@@ -343,7 +350,7 @@ form input.st-search-input {
 }
 
 .pagination a {
-    color: black;
+    color: #84989F;
     float: none;
     padding: 8px 10px;
     text-decoration: none;

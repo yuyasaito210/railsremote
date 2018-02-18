@@ -62,6 +62,19 @@ form {
   }
 }
 
+#apply_button {
+  border-radius: 31px;
+  background-color: #07e9cb;
+  border: 2px solid #07e9cb;
+  width: 50%;
+  color: white;
+
+  &:hover {
+    color: #07e9cb;
+    background-color: white;
+  }
+}
+
 .new-jobs-save { 
   background-color: white;
   margin-left: -30px;

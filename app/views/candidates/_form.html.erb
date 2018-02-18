@@ -1,0 +1,37 @@
+<%= form_with(model: candidate, local: true) do |form| %>
+  <% if candidate.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(candidate.errors.count, "error") %> prohibited this candidate from being saved:</h2>
+
+      <ul>
+      <% candidate.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, id: :candidate_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone_number, id: :candidate_phone_number %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :candidate_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :resume %>
+    <%= form.text_field :resume, id: :candidate_resume %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

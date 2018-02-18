@@ -1,0 +1,30 @@
+.row
+  .col-md-offset-1.col-md-10
+    .show_job.bs-component.clearfix.form-newpost
+      %form#new_@job.new_job{"accept-charset" => "UTF-8", :action => "/candidates", :method => "post", :enctype => "multipart/form-data"}
+        %input{:name => "utf8", :type => "hidden", :value => "✓"}/
+        %input{:name => "authenticity_token", :type => "hidden", :value => "CvHXz8XQMOlEbhFjFUbUqDJ+4nnjrYuikFFAscyNWVzfTLcmkc03gTaoph6PH5nZtwDu7pGOvhnReNdg7qj8xQ=="}/
+        %input#token{:name => "token", :type => "hidden"}/
+        %input{:name => "candidate[job_id]", :type => "hidden", :value => @job.id}/
+
+        %fieldset
+          %legend.no-sep
+            Tell us about yourself
+          .row
+            .col-md-6.form-group
+              .mb-3
+                %input#job_company_name.form-control{:name => "candidate[name]", :placeholder => "Name", :required => "required", :type => "text", :value => @candidate.name}/
+          .row
+            .col-md-6.form-group
+              .mb-3
+                %input.form-control{:name => "candidate[phone_number]", :placeholder => "Phone", :required => "required", :type => "text", :value => @candidate.phone_number}/
+          .row
+            .col-md-6.form-group
+              %legend.no-sep
+                = "Resume"
+              %label
+                = file_field_tag "candidate[resume]"
+
+          .row
+            .col-6.form-group.text-center
+              %input.btn.btn-default.btn-raised{:name => "commit", :type => "submit", :value => "Apply", :id => "apply_button"}/

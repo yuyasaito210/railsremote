@@ -1,6 +1,9 @@
 class Job < ActiveRecord::Base
-  searchkick
+  searchkick word_start: [:title]
+  # searchkick autocomplete: ['title']
   mount_uploader :resume, ResumeUploader
+
+  has_many :candidates
 
   TYPES = {
     "--Select Job Type--" => "Unspecified",
@@ -34,7 +37,7 @@ class Job < ActiveRecord::Base
 
     results = nil
     keywords.each do |keyword|
-      result = Job.search(keyword, fields: [:title, :job_type, :location, :company_name]).records if !keyword.blank?
+      result = Job.search(keyword, fields: [:title, :location, :job_type, :company_name], match: :word_start).records if !keyword.blank?
       if result
         results &= result if results
         results = result unless results
@@ -84,19 +87,7 @@ class Job < ActiveRecord::Base
   end
 
   def self.template
-    default_text = <<-TEMPLATE
-      Here's is a simple Markdown template to get you started.
-
-      ### Essential Job Functions
-
-      - List item 1
-      - list item 2
-
-      ### Requirements
-
-      ### Benefits
-
-    TEMPLATE
+    default_text = ""
     new(description: default_text.gsub('      ', ''))
   end
 

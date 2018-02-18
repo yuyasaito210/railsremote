@@ -3,7 +3,7 @@ class JobsController < ApplicationController
     if params[:q].present?
       @job_title = params[:q]
       results = Job.intelligence_search(params[:q])
-      if results && results.size > 0
+      if results
         @jobs = Kaminari.paginate_array(results).page(params[:page]).per(7)
       else
         @jobs = nil
@@ -14,7 +14,7 @@ class JobsController < ApplicationController
     end
   end
 
-  def show
+  def show   
     @job = Job.find(params[:id])
     set_meta_tags(
       title: [@job.title, @job.company_name].compact.join(" at "),
@@ -30,6 +30,10 @@ class JobsController < ApplicationController
         }
       }
     )
+
+    if !params[:token].present? || params[:token] == @job.token
+      @candidate = Candidate.new
+    end
   end
 
   def edit
@@ -60,6 +64,31 @@ class JobsController < ApplicationController
       handle_success
     else
       render action: :edit
+    end
+  end
+
+  # def autocomplete
+  #   render json: Job.search(params[:q], {
+  #     fields: ["title^5", "location", "company_name", "job_type"],
+  #     match: :word_start,
+  #     limit: 10,
+  #     load: false,
+  #     misspellings: {below: 5}
+  #   }).map(&:title)
+  # end
+  def autocomplete
+    # render json: Job.search(params[:q], autocomplete: true, limit: 10).map(&:title)
+    # render json: Job.search(params[:q], autocomplete: false, limit: 10).map do |job|
+    #   { title: job.title, value: job.id }
+    # end
+    def autocomplete
+      render json: Job.search(params[:q], {
+        fields: ["title^5"],
+        match: :word_start,
+        limit: 10,
+        load: false,
+        misspellings: {below: 5}
+      }).map(&:title)
     end
   end
 

@@ -15,4 +15,8 @@ module JobsHelper
   def select_job_type(control_type, job_type)
     control_type == job_type ? 'selected' : 'none'
   end
+
+  def get_description_template
+    description_template = ""
+  end
 end

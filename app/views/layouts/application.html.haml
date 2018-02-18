@@ -10,6 +10,7 @@
     %meta{ "http-equiv" => "X-UA-Compatible", "content" => "IE=edge" }
     %meta{ "name" => "viewport", "content" => "width=device-width, initial-scale=1" }
     %link{:href => "https://fonts.googleapis.com/css?family=Open+Sans", :rel => "stylesheet"}/
+    = javascript_include_tag "https://cdnjs.cloudflare.com/ajax/libs/corejs-typeahead/1.2.1/typeahead.bundle.js"
     
   %body
     :javascript
@@ -39,5 +40,18 @@
           %span.input-group-addon
             %button{type: "submit", class: "search-button"}
               %span.glyphicon.glyphicon-circle-arrow-right
-
+        
       = yield
+
+    :javascript
+      var jobs = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.whitespace,
+        queryTokenizer: Bloodhound.tokenizers.whitespace,
+        remote: {
+          url: '/jobs/autocomplete?q=%QUERY',
+          wildcard: '%QUERY'
+        }
+      });
+      $('#st-search-input').typeahead(null, {
+        source: jobs
+      });

@@ -7,12 +7,10 @@
         | 
         = job.location
       %span.home-job-company
-        = job.job_type
-        = " job in "
         = link_to job.company_name, url_with_protocol(job.company_url), target: "_blank"
         %p
           = link_to "Edit", edit_admin_job_path(job, token: job.token)
           = link_to "Delete", admin_job_path(job, token: job.token), method: :delete, class: 'text-warning', data: { confirm: "Delete?" }
   %td.home-date.col-md-2.col-sm-2.hidden-xs
     %span.date
-      = "#{job.updated_at.strftime('%B %e %y')}"
+      = "#{job.updated_at.strftime('%B %e')}"

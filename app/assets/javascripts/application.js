@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-material-design
+//= require bootstrap-typeahead-rails
 //= require_tree .
 
 

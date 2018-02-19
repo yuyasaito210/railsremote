@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  searchkick word_start: [:title]
+  searchkick word_start: [:title, :location, :job_type, :company_name]
   # searchkick autocomplete: ['title']
   mount_uploader :resume, ResumeUploader
 

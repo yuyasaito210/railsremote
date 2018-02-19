@@ -76,21 +76,25 @@ class JobsController < ApplicationController
   #     misspellings: {below: 5}
   #   }).map(&:title)
   # end
-  def autocomplete
+  # def autocomplete
     # render json: Job.search(params[:q], autocomplete: true, limit: 10).map(&:title)
     # render json: Job.search(params[:q], autocomplete: false, limit: 10).map do |job|
     #   { title: job.title, value: job.id }
     # end
-    def autocomplete
-      render json: Job.search(params[:q], {
-        fields: ["title^5"],
-        match: :word_start,
-        limit: 10,
-        load: false,
-        misspellings: {below: 5}
-      }).map(&:title)
+  # end
+  def autocomplete
+    jobs = Job.search(params[:q], {
+      fields: ["title^5", "location^5", "job_type", "company_name^5"],
+      match: :word_start,
+      limit: 10,
+      load: false,
+      misspellings: {below: 5}
+    }).map do |job| { title: job.title, title_and_location: "#{job.title} | #{job.location}", location: job.location, job_type: job.job_type, company_name: job.company_name}
     end
+    Rails.logger.info "=== jobs: #{jobs.inspect}"
+    render json: jobs
   end
+
 
 private
 

@@ -44,14 +44,24 @@
       = yield
 
     :javascript
-      var jobs = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.whitespace,
+      var engine = new Bloodhound({
+        datumTokenizer: function(d) {
+          console.log(d);
+          return Bloodhound.tokenizers.whitespace(d.title_and_location);
+        },
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         remote: {
           url: '/jobs/autocomplete?q=%QUERY',
           wildcard: '%QUERY'
         }
       });
+      var promise = engine.initialize();
+      promise
+      .done(function() { console.log('success!'); })
+      .fail(function() { console.log('err!'); });
+
       $('#st-search-input').typeahead(null, {
-        source: jobs
+        name: 'engine',
+        displayKey: 'title_and_location',
+        source: engine.ttAdapter()
       });

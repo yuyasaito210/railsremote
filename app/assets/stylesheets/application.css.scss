@@ -7,17 +7,14 @@
 @import "font-awesome-sprockets";
 @import "font-awesome";
 
-
 body {
-  background-image: image-url("railsremote-bg.png");
+  background-image: url(asset-path('railsremote-bg.png'));
   -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
     font-family: "Lucida Sans Unicode" !important;
 }
-
-
 
 body .container .well {
   border-radius: 5px !important;
@@ -404,7 +401,6 @@ form input.st-search-input {
   padding: 10px 8px;
   font-size: 13px;
   list-style-type: none;
-  background-image: none;
   margin: 0;
 }
 

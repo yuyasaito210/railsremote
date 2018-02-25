@@ -1,7 +1,7 @@
 .row
   .col-md-offset-1.col-md-10
     .well.bs-component.clearfix.form-newpost
-      %form#new_job.new_job{"accept-charset" => "UTF-8", :action => admin_job_path, :method => :post, :as => job, :enctype => "multipart/form-data"}
+      %form#new_job.new_job{"accept-charset" => "UTF-8", :action => admin_jobs_path, :method => :post, :as => job, :enctype => "multipart/form-data"}
         %input{:name => "_method", :type => "hidden", :value => "put"}
         %input{:name => "utf8", :type => "hidden", :value => "✓"}/
         %input{:name => "authenticity_token", :type => "hidden", :value => "CvHXz8XQMOlEbhFjFUbUqDJ+4nnjrYuikFFAscyNWVzfTLcmkc03gTaoph6PH5nZtwDu7pGOvhnReNdg7qj8xQ=="}/
@@ -14,11 +14,11 @@
                 %input#job_title.form-control{:name => "job[title]", :placeholder => "Job Title", :required => "required", :type => "text", :value => job.title}/
             .col-md-6.form-group
               .mb-3
-                = select_tag "job[job_type]", 
-                  options_for_select(["Contract C2C", 
-                                      "Full-Time", 
-                                      "Internship"], job.job_type), 
-                  selected: "Contract C2C", class: 'form-control', 
+                = select_tag "job[job_type]",
+                  options_for_select(["Contract C2C",
+                                      "Full-Time",
+                                      "Internship"], job.job_type),
+                  selected: "Contract C2C", class: 'form-control',
                   required: "required"
           .form-group
             %label

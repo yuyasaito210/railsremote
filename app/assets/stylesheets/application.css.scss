@@ -8,31 +8,38 @@
 @import "font-awesome";
 
 body {
-  background-image: url(asset-path('railsremote-bg.png'));
+  background: #3db3ee;
   -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    font-family: "Lucida Sans Unicode" !important;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  font-family: "Lucida Sans Unicode" !important;
 }
 
 body .container .well {
   border-radius: 5px !important;
   box-shadow: 0 0 0 0 !important;
   -webkit-box-shadow: 0 0 0 0 !important;
-  
+
 }
 
 body .container .show_job {
   border-radius: 0px !important;
   box-shadow: 0 0 0 0 !important;
   -webkit-box-shadow: 0 0 0 0 !important;
-  
+
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Lucida Sans Unicode" !important;
 }
+
+#particles-js {
+   width: 100%;
+   height: 100%;
+   color: white;
+   position: absolute;
+ }
 
 .big-checkbox {width: 50px; height: 50px;}
 
@@ -42,15 +49,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   padding-right: 0 !important;
   width: 95%;
   margin: 0 auto;
-}
-
-.form-newpost {
-  border-radius: 5px !important;
-  box-shadow: 0 0 0 0 !important;
-  -webkit-box-shadow: 0 0 0 0 !important;
-  background-color: #edf9fd !important;
-  border-color: transparent !important;
-  padding-bottom: 0px !important;
+  padding: 20px;
 }
 
 #social {
@@ -112,7 +111,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   border-radius: 27px;
   -moz-border-radius:27px;
   -webkit-border-radius:27px;
-  
+
 }
 
 .plusBtn{
@@ -166,7 +165,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 
 .fa-exclamation-triangle {
   color: #f6c315;
-  font-size: 30px;  
+  font-size: 30px;
 }
 
 h3 {
@@ -182,7 +181,7 @@ p {
   margin-left: -20px;
   margin-right: -20px;
   border: none !important;
-  
+
 }
 
 .home-img {
@@ -289,8 +288,8 @@ tr:nth-child(odd) {
     border-top-right-radius: 25px !important;
 }
 .stylish-input-group .form-control{
-	border-right:0; 
-	box-shadow:0 0 0; 
+	border-right:0;
+	box-shadow:0 0 0;
 	border-color:#ccc;
 	height: 37px;
 }

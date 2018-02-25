@@ -8,7 +8,7 @@ class AdminJobsController < ApplicationController
       if results && results.size > 0
         @jobs = Kaminari.paginate_array(results).page(params[:page]).per(7)
       else
-        @jobs = nil 
+        @jobs = nil
       end
     else
       @job_title = nil
@@ -16,6 +16,22 @@ class AdminJobsController < ApplicationController
     end
     # @jobs = Job.newest_first.with_admin_scope(params[:scope]).page(params[:page]).per_page(4)
     session[:admin] = true
+  end
+
+  def new
+  end
+  
+  def create
+    @job = Job.new(job_params)
+    render action: :preview and return if params[:commit] == "Preview"
+    return render text: "Success", status: :ok if params[:honey].present?
+    if @job.save
+      # Send email to admin.
+      JobMailer.job_email_by_admin(@job).deliver
+      handle_success
+    else
+      render action: :edit
+    end
   end
 
   def update
@@ -28,7 +44,7 @@ class AdminJobsController < ApplicationController
     end
   end
 
-  def publish 
+  def publish
     job = Job.find(params[:admin_job_id])
     job.update_column(:visible_until, 1.month.from_now)
     redirect_back fallback_location: admin_jobs_path, notice: "Visible until #{job.visible_until}"

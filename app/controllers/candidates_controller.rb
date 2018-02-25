@@ -21,15 +21,15 @@ class CandidatesController < ApplicationController
 
   # POST /candidates
   def create
-
+    @job = Job.find(params[:candidate][:job_id])
     @candidate = Candidate.new(candidate_params)
-
     if @candidate.save
       JobMailer.apply_email(@candidate).deliver
-
+      JobMailer.apply_confirm_email(@candidate).deliver
       redirect_to jobs_path
     else
-      render :new
+      flash[:error] = @job.errors.full_messages
+      redirect_to job_path @job
     end
   end
 

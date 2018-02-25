@@ -1,5 +1,2 @@
-- if params[:token] == @job.token
-  = render "admin_jobs/show"
-- else
-  = render "jobs/show_job", job: @job
-  = render "jobs/form_for_candidate", job: @job
+= render "jobs/show_job", job: @job
+= render "jobs/form_for_candidate", job: @job, candidate: @candidate

@@ -1,5 +1,5 @@
 class Job < ActiveRecord::Base
-  searchkick word_start: [:title, :location, :job_type, :company_name]
+  searchkick word_start: [:title, :location, :job_type, :company_name], suggest: [:title]
   # searchkick autocomplete: ['title']
   mount_uploader :resume, ResumeUploader
 
@@ -37,8 +37,11 @@ class Job < ActiveRecord::Base
 
     results = nil
     keywords.each do |keyword|
-      result = Job.search(keyword, fields: [:title, :location, :job_type, :company_name], match: :word_start).records if !keyword.blank?
+      result = Job.search(keyword, fields: [:title, :location, :job_type, :company_name], match: :word_start, suggest: true).records if !keyword.blank?
       if result
+        suggestion_result = result.try(:suggestions)
+        Rails.logger.info "=== suggestion_result: #{suggestion_result.inspect}"
+        
         results &= result if results
         results = result unless results
       end

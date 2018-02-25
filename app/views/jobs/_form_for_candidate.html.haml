@@ -6,7 +6,6 @@
         %input{:name => "authenticity_token", :type => "hidden", :value => "CvHXz8XQMOlEbhFjFUbUqDJ+4nnjrYuikFFAscyNWVzfTLcmkc03gTaoph6PH5nZtwDu7pGOvhnReNdg7qj8xQ=="}/
         %input#token{:name => "token", :type => "hidden"}/
         %input{:name => "candidate[job_id]", :type => "hidden", :value => @job.id}/
-
         %fieldset
           %legend.no-sep
             Tell us about yourself
@@ -14,6 +13,10 @@
             .col-md-6.form-group
               .mb-3
                 %input#job_company_name.form-control{:name => "candidate[name]", :placeholder => "Name", :required => "required", :type => "text", :value => @candidate.name}/
+          .row
+            .col-md-6.form-group
+              .mb-3
+                %input#job_email.form-control{:name => "candidate[email]", :placeholder => "Email", :required => "required", :type => "email", :value => @candidate.email}/
           .row
             .col-md-6.form-group
               .mb-3
@@ -28,3 +31,14 @@
           .row
             .col-6.form-group.text-center
               %input.btn.btn-default.btn-raised{:name => "commit", :type => "submit", :value => "Apply", :id => "apply_button"}/
+
+              :javascript
+                $("#apply_button").on("click", function(event) {
+                  var files = document.getElementById("candidate_resume").files;
+                  console.log("=== files: ", files);
+                  if (files === 'undefined' || files.size === 0) {
+                    event.preventDefault();
+                    alert('You must upload a resume file.');
+                    return;
+                  }
+                });

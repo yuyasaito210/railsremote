@@ -11,6 +11,22 @@ class JobMailer < ApplicationMailer
     mail(to: @job.email, subject: "#{candidate.name} applied #{@job.title} job at #{@job.company_name} in #{@job.location}.")
   end
 
+  def apply_confirm_email(candidate)
+  	@job = candidate.job
+    @candidate = candidate
+  	mail(to: @candidate.email, subject: "Your application for the #{@job.title} job has been submitted successfully.")
+  end
+
+  def job_email(job)
+  	@job = job
+    mail(to: ENV['ADMIN_EMAIL'], subject: "Job posted successfully | Tom Ash Jobs.")
+  end
+
+  def job_email_by_admin(job)
+  	@job = job
+    mail(to: ENV['ADMIN_EMAIL'], subject: "Job posted successfully | Tom Ash Jobs.")
+  end
+
   def extract_extention(file_name)
   	separate = file_name.split('.')
   	separate[separate.size - 1]

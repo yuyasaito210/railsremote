@@ -1,0 +1,12 @@
+.row.test-job-form{style: "padding-left: 40px !important;padding-right: 40px !important;"}
+  .col-md-offset-1.col-md-10
+    %job-title
+      = "You job has been posted successfully on Tom Ash Jobs"
+
+  .col-md-offset-1.col-md-10
+    %job-title
+      = link_to @job.title, job_url(@job, :host=>'www.tomashjobs.com'), target: "_blank"
+      %p
+        = "You can edit, modify or delete your job posting at anytime following this link: #{admin_job_path(@job, :host=>'www.tomashjobs.com')}"
+      %p
+        = "Thank you for using Tom Ash Jobs"

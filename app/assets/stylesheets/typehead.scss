@@ -10,12 +10,14 @@
 }
 
 .tt-hint {
-  color: #999
+  color: #999;
+  padding-left: 34px;
 }
 
 .tt-menu {    /* used to be tt-dropdown-menu in older versions */
-  width: 422px;
+  width: 100%;
   margin-top: 4px;
+  margin-left: 14px;
   padding: 4px 0;
   background-color: #fff;
   border: 1px solid #ccc;
@@ -41,4 +43,16 @@
 
 .tt-suggestion p {
   margin: 0;
+}
+
+.tt-input {
+  position: relative;
+  vertical-align: top;
+  background-color: transparent;
+  padding-left: 34px;
+}
+
+.pre {
+  overflow: auto;
+  padding-left: 32px;
 }

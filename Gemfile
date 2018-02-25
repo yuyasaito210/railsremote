@@ -75,7 +75,7 @@ end
 
 # Manage rails environment variable
 gem 'figaro'
-# Support Elasticsearch 
+# Support Elasticsearch
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'bonsai-elasticsearch-rails'
@@ -86,3 +86,8 @@ gem "will_paginate"
 gem 'kaminari'
 # File upload
 gem 'carrierwave'
+# particles.js for background effect
+# gem 'high_voltage', '~> 3.0.0'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-particles.js'
+end

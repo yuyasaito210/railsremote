@@ -2,6 +2,8 @@
   background-color: white;
   padding-left: 20px !important;
   padding-right: 20px !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
 }
 
 .job-title {
@@ -9,7 +11,7 @@
   padding-left: 15px;
   font-size: 18px;
   font-weight: bold;
-}  
+}
 small a {
   color: #07e9cb;
   font-weight: bold;
@@ -24,7 +26,7 @@ small a {
 .job-type {
   font-size: 12px;
   color: gray
-}    
+}
 .push-down {
   margin-top: 1em;
 }
@@ -72,6 +74,22 @@ small a {
   text-decoration: none;
 }
 
+.post-new-in-show-page {
+  color: #777;
+  position: absolute;
+  top: -22px;
+  right: -14px;
+  font-size: 35px;
+  border-radius: 50%;
+  height: 60px;
+  width: 60px;
+  font-color: #fff;
+  font: #fff;
+  color: white;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 @media only screen and (min-width: 481px) and (max-width : 767px) {
   .post-new {
     top: -14px;
@@ -89,7 +107,7 @@ small a {
       font-size: 24px;
       height: 40px;
       width: 40px;
-  }  
+  }
 }
 
 .mail-new {
@@ -101,7 +119,7 @@ small a {
   top: 80px;
   left: 77px;
 }
-  
+
 .list-group {
   margin-top: 50px;
 }
@@ -113,8 +131,8 @@ small a {
   line-height: 1.1;
   font-size: 16px;
   display: inline;
-}      
-      
+}
+
 .list-group
   .list-group-item
     .list-group-item-home {
@@ -163,14 +181,14 @@ small a {
   font-weight: bold;
   color: black;
   font-size: 14px;
-}  
+}
 .no-sep {
   border-bottom: 0 !important;
 }
 
 h3 {
   font-weight: bold;
-}  
+}
 .arrow {
   width: 15px;
 }

@@ -5,9 +5,14 @@ Rails.application.routes.draw do
   resources :jobs do
   	collection do
       get :autocomplete
+      get :preview
     end
   end
-  resources :admin_jobs, only: [:index, :new, :create, :update, :destroy, :edit, :show] do
+  resources :admin_jobs do
+    collection do
+      get :autocomplete
+      get :preview
+    end
   	put :publish
   end
 

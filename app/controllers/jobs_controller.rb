@@ -14,7 +14,7 @@ class JobsController < ApplicationController
     end
   end
 
-  def show   
+  def show
     @job = Job.find(params[:id])
     set_meta_tags(
       title: [@job.title, @job.company_name].compact.join(" at "),
@@ -37,21 +37,30 @@ class JobsController < ApplicationController
   end
 
   def edit
-    @job = safe_find_job
+    if params[:edit_type].present? && params[:edit_type] == "from_preview"
+      @job = Job.new(string_job_params)
+      if params[:commit] == "Save and Continue"
+        if @job.save
+          # Send email to admin.
+          JobMailer.job_email(@job).deliver
+          handle_success
+        end
+      end
+    else
+      @job = Job.where(id: params[:id]).first!
+    end
   end
 
   def new
-
   end
 
   def create
     @job = Job.new(job_params)
+    render action: :preview and return if params[:commit] == "Preview"
     return render text: "Success", status: :ok if params[:honey].present?
     if @job.save
-      # Sends email to user when user is created.
-      Rails.logger.info "@job: #{@job.inspect}"
+      # Send email to admin.
       JobMailer.job_email(@job).deliver
-
       handle_success
     else
       render action: :edit
@@ -59,7 +68,7 @@ class JobsController < ApplicationController
   end
 
   def update
-    @job = safe_find_job
+    @job = Job.where(id: params[:id]).first!
     if @job.update_attributes(job_params)
       handle_success
     else
@@ -67,40 +76,25 @@ class JobsController < ApplicationController
     end
   end
 
-  # def autocomplete
-  #   render json: Job.search(params[:q], {
-  #     fields: ["title^5", "location", "company_name", "job_type"],
-  #     match: :word_start,
-  #     limit: 10,
-  #     load: false,
-  #     misspellings: {below: 5}
-  #   }).map(&:title)
-  # end
-  # def autocomplete
-    # render json: Job.search(params[:q], autocomplete: true, limit: 10).map(&:title)
-    # render json: Job.search(params[:q], autocomplete: false, limit: 10).map do |job|
-    #   { title: job.title, value: job.id }
-    # end
-  # end
+  def preview
+    @job = Job.new(job_params)
+    render action: :preview
+  end
+
   def autocomplete
     jobs = Job.search(params[:q], {
       fields: ["title^5", "location^5", "job_type", "company_name^5"],
       match: :word_start,
       limit: 10,
       load: false,
-      misspellings: {below: 5}
-    }).map do |job| { title: job.title, title_and_location: "#{job.title} | #{job.location}", location: job.location, job_type: job.job_type, company_name: job.company_name}
+      misspellings: {below: 5},
+      suggest: true
+    }).map do |job| { title: job.title, title_and_location: "#{job.title} in #{job.location}", location: job.location, job_type: job.job_type, company_name: job.company_name}
     end
-    Rails.logger.info "=== jobs: #{jobs.inspect}"
     render json: jobs
   end
 
-
 private
-
-  def safe_find_job
-    Job.where(id: params[:id], token: params[:token]).first!
-  end
 
   def job_params
     job_params = params.require(:job).permit(
@@ -113,11 +107,24 @@ private
     job_params
   end
 
+  def string_job_params
+    # new_job_params = ActionController::Parameters.new(job: JSON.parse(str_job))
+    job_params = ActionController::Parameters.new(job: JSON.parse(params[:job]))
+                  .require(:job).permit(
+                    :token, :title, :job_type, :company_name, :salary,
+                    :company_url, :email, :description, :how_to_apply,
+                    :agencies_ok, :timezone_preferences, :location,
+                    :resume
+                  )
+    job_params.permit.merge!(published: params[:commit] != "Preview")
+    job_params
+  end
+
   def handle_success
     if @job.published
       redirect_to job_path(@job, token: @job.token), notice: "All done! This job will become public once our moderators approve it."
     else
-      redirect_to job_path(@job, token: @job.token)
+      redirect_to jobs_path
     end
   end
 end

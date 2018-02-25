@@ -13,10 +13,11 @@ legend {
 }
 
 form {
-  padding-top: 50px;
+  padding-top: 0px;
   padding-left: 30px;
   padding-right: 30px;
 }
+
 .form-control {
   color: #84989f;
   font-size: 14px;
@@ -35,7 +36,7 @@ form {
   display: inline-block;
   width: 100%;
 }
-  
+
 #preview {
   border-radius: 31px;
   width: 100%;
@@ -47,7 +48,7 @@ form {
     color: white;
     background-color: #07e9cb;
   }
-}  
+}
 
 #save-continue {
   border-radius: 31px;
@@ -75,7 +76,17 @@ form {
   }
 }
 
-.new-jobs-save { 
+.form-newpost {
+  border-radius: 5px !important;
+  box-shadow: 0 0 0 0 !important;
+  -webkit-box-shadow: 0 0 0 0 !important;
+  background-color: #edf9fd !important;
+  border-color: transparent !important;
+  padding-top: 20px !important;
+  padding-bottom: 20px !important;
+}
+
+.new-jobs-save {
   background-color: white;
   margin-left: -30px;
   margin-right: -30px;
@@ -87,4 +98,5 @@ form {
 
 .new-jobs-save  .form-group {
   margin-top: 15px;
+  margin-bottom: 10px;
 }

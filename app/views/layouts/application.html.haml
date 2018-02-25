@@ -70,4 +70,16 @@
           console.log("=== ", datum.title_and_location);
           $('#st-search-input').val(datum.title_and_location);
           window.location = "/jobs?q=" + datum.title_and_location;
-      });;
+      });
+
+      $('#st-search-input').keypress(function (e) {
+        if (e.which == 13) {
+            var keywords = $('#st-search-input').val();
+            window.location = "/jobs?q=" + keywords;
+        }
+      });
+
+      $('.search-button').on("click", function(e) {
+        var keywords = $('#st-search-input').val();
+        window.location = "/jobs?q=" + keywords;
+      });

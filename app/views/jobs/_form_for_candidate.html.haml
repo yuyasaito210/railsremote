@@ -33,11 +33,10 @@
               %input.btn.btn-default.btn-raised{:name => "commit", :type => "submit", :value => "Apply", :id => "apply_button"}/
 
               :javascript
-                $("#apply_button").on("click", function(event) {
+                $("#apply_button").on("click", function(e) {
                   var files = document.getElementById("candidate_resume").files;
-                  console.log("=== files: ", files);
                   if (files === 'undefined' || files.size === 0) {
-                    event.preventDefault();
+                    e.preventDefault();
                     alert('You must upload a resume file.');
                     return;
                   }

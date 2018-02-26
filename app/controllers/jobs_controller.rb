@@ -1,4 +1,7 @@
 class JobsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  protect_from_forgery prepend: true, with: :exception
+
   def index
     if params[:q].present?
       @job_title = params[:q]
@@ -51,6 +54,21 @@ class JobsController < ApplicationController
     end
   end
 
+  def edit_from_json
+    if params[:edit_type].present? && params[:edit_type] == "from_preview"
+      @job = Job.new(string_job_params)
+      if params[:commit] == "Save and Continue"
+        if @job.save
+          # Send email to admin.
+          JobMailer.job_email(@job).deliver
+          handle_success
+        end
+      end
+    else
+      @job = Job.where(id: params[:id]).first!
+    end
+  end
+
   def new
   end
 
@@ -61,6 +79,7 @@ class JobsController < ApplicationController
     if @job.save
       # Send email to admin.
       JobMailer.job_email(@job).deliver
+      JobMailer.job_email_by_admin(@job).deliver
       handle_success
     else
       render action: :edit

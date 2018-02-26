@@ -1,0 +1,7 @@
+.row
+  .col-md-offset-1.col-lg-10
+    .alert{ class: "alert-#{type}" }
+      %strong= highlight
+      = text
+    :javascript
+      $(".alert").hide();

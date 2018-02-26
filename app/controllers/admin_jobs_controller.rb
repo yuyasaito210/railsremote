@@ -6,7 +6,7 @@ class AdminJobsController < ApplicationController
       @job_title = params[:q]
       results = Job.intelligence_search(params[:q])
       if results && results.size > 0
-        @jobs = Kaminari.paginate_array(results).page(params[:page]).per(7)
+        @jobs = Kaminari.paginate_array(results).page(params[:page]).per(4)
       else
         @jobs = nil
       end
@@ -16,15 +16,29 @@ class AdminJobsController < ApplicationController
     end
     # @jobs = Job.newest_first.with_admin_scope(params[:scope]).page(params[:page]).per_page(4)
     session[:admin] = true
+    @is_admin = true
   end
 
   def new
   end
-  
+
   def create
-    @job = Job.new(job_params)
+    if params[:id].present?
+      @job = Job.find(params[:id])
+      @job.title          = params[:job][:title]
+      @job.job_type       = params[:job][:job_type]
+      @job.description    = params[:job][:description]
+      @job.company_name   = params[:job][:company_name]
+      @job.location       = params[:job][:location]
+      @job.company_url    = params[:job][:company_url]
+      @job.email          = params[:job][:email]
+    else
+      @job = Job.new(job_params)
+    end
+
     render action: :preview and return if params[:commit] == "Preview"
     return render text: "Success", status: :ok if params[:honey].present?
+
     if @job.save
       # Send email to admin.
       JobMailer.job_email_by_admin(@job).deliver
@@ -35,8 +49,8 @@ class AdminJobsController < ApplicationController
   end
 
   def update
-    # @job = safe_find_job
     @job = Job.where(id: params[:id]).first
+    render action: :preview and return if params[:commit] == "Preview"
     if @job.update_attributes(job_params)
       handle_success
     else
@@ -57,7 +71,33 @@ class AdminJobsController < ApplicationController
   end
 
   def edit
-    @job = Job.where(id: params[:id]).first!
+    if params[:edit_type].present? && params[:edit_type] == "from_preview"
+      @job = Job.new(string_job_params)
+      if params[:commit] == "Save and Continue"
+        if @job.save
+          # Send email to admin.
+          # JobMailer.job_email(@job).deliver
+          handle_success
+        end
+      end
+    else
+      @job = Job.where(id: params[:id]).first!
+    end
+  end
+
+  def edit_from_json
+    if params[:edit_type].present? && params[:edit_type] == "from_preview"
+      @job = Job.new(string_job_params)
+      if params[:commit] == "Save and Continue"
+        if @job.save
+          # Send email to admin.
+          JobMailer.job_email(@job).deliver
+          handle_success
+        end
+      end
+    else
+      @job = Job.where(id: params[:id]).first!
+    end
   end
 
   def show
@@ -91,6 +131,19 @@ class AdminJobsController < ApplicationController
       :agencies_ok, :timezone_preferences, :location,
       :resume
     )
+    job_params.permit.merge!(published: params[:commit] != "Preview")
+    job_params
+  end
+
+  def string_job_params
+    # new_job_params = ActionController::Parameters.new(job: JSON.parse(str_job))
+    job_params = ActionController::Parameters.new(job: JSON.parse(params[:job]))
+                  .require(:job).permit(
+                    :id, :token, :title, :job_type, :company_name, :salary,
+                    :company_url, :email, :description, :how_to_apply,
+                    :agencies_ok, :timezone_preferences, :location,
+                    :resume
+                  )
     job_params.permit.merge!(published: params[:commit] != "Preview")
     job_params
   end

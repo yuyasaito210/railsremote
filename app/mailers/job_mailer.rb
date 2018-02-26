@@ -19,7 +19,7 @@ class JobMailer < ApplicationMailer
 
   def job_email(job)
   	@job = job
-    mail(to: ENV['ADMIN_EMAIL'], subject: "Job posted successfully | Tom Ash Jobs.")
+    mail(to: @job.email, subject: "Job posted successfully | Tom Ash Jobs.")
   end
 
   def job_email_by_admin(job)

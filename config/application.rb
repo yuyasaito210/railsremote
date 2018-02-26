@@ -30,5 +30,9 @@ module Railsremote
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     # config.active_record.raise_in_transactional_callbacks = true
+    config.session_store :cookie_store
+    config.middleware.use ActionDispatch::Cookies
+    config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
+    config.middleware.use Rack::MethodOverride
   end
 end

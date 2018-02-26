@@ -5,8 +5,9 @@
 
   .col-md-offset-1.col-md-10
     %job-title
-      = link_to @job.title, job_url(@job, :host=>'www.tomashjobs.com'), target: "_blank"
+      = link_to @job.title, admin_job_url(@job, :host=>'www.tomashjobs.com'), target: "_blank"
+    .col-md-12
       %p
-        = "You can edit, modify or delete your job posting at anytime following this link: #{admin_job_path(@job, :host=>'www.tomashjobs.com')}"
+        = "You can edit, modify or delete your job posting at anytime following this link: #{admin_job_url(@job, :host=>'www.tomashjobs.com')}"
       %p
         = "Thank you for using Tom Ash Jobs"

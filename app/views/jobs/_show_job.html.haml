@@ -1,5 +1,4 @@
-- if params[:token] == @job.token
-  = render 'shared/alert', type: 'info', highlight: "This is a preview.", text: "The job is not visible publicly. Do not share this link, it allows editing the job posting."
+= render 'shared/alert_job_action', type: 'success', highlight: "#{@job.title}: ", text: "Your application has been submitted successfully"
 
 .row.test-job-form
   .col-md-offset-1.col-md-10

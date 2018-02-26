@@ -1,0 +1,45 @@
+.row.test-job-form
+  .col-md-offset-1.col-md-10
+    .well.bs-component.clearfix.job-box
+      = link_to new_admin_job_path, class: 'pull-right post-new plusBtn bigGlobalBtn' do
+        %span
+      - text = "#{@job.company_name} is hiring a #{@job.title}"
+      = mail_to "", subject: text, body: "#{text}\n#{job_url(@job)}", class: "pull-right mail-new emailBtn smGlobalBtn" do
+        %span
+      = link_to "http://twitter.com/intent/tweet?url=#{job_url(@job)}&text=#{text}&via=rails_remote", target: "_blank", class: "pull-right twitter-new twitterBtn twGlobalBtn" do
+        %span
+
+      %h2.job-title
+        = @job.title
+        %small
+          at
+          = link_to @job.company_name, url_with_protocol(@job.company_url), target: "_blank"
+          in
+          = @job.location
+      .col-md-12
+        - if @job.type_specified?
+          %p.job-type
+            %label#jobtype Job type -
+            = quick_job_icon @job
+            %span.job-type
+              = @job.job_type
+              |
+            %label#jobtype Posted on
+            = "#{@job.created_at.strftime('%B %e')}"
+
+        %p= md @job.description
+
+        - if !@job.resume.to_s.blank?
+          .row.apply-job
+            .pa-box
+              %span.box-title
+                = link_to "Download resume", @job.resume_url, class: 'btn btn-default btn-raised'
+
+        .row.marg-20
+          .text-center
+            - if @job.persisted?
+              = link_to "Admin Delete", admin_job_path(@job, token: @job.token), method: :delete, class: 'btn btn-raised btn-danger', data: { confirm: "Delete?" }
+              = link_to "Admin Publish", admin_job_publish_path(@job, token: @job.token), method: :put, class: 'btn btn-raised btn-warning'
+            = link_to "Edit the Job", edit_admin_job_path(@job, token: @job.token), class: 'btn btn-default btn-raised'
+            - if !@job.published?
+              = link_to "All good, make it live", admin_job_path(@job, job: {published: true}, token: @job.token), class: 'btn btn-success btn-raised', method: :patch

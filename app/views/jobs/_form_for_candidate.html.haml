@@ -35,9 +35,11 @@
               :javascript
                 $("#apply_button").on("click", function(e) {
                   var files = document.getElementById("candidate_resume").files;
-                  if (files === 'undefined' || files.size === 0) {
+                  if (files === 'undefined' || files.length === 0) {
                     e.preventDefault();
                     alert('You must upload a resume file.');
                     return;
+                  } else {
+                    $(".alert").fadeIn(1000);
                   }
                 });

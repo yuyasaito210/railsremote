@@ -3,3 +3,51 @@
     %p.job-type
       %span.job-type
         = "Your application for the #{@job.title} job has been submitted successfully."
+
+.row.test-job-form{style: "padding-left: 40px !important;padding-right: 40px !important;"}
+  .col-md-offset-1.col-md-10
+    %h2.job-title
+      = "Candidate: "
+    %p.job-type
+      %b
+        %label#jobtype Name:
+      %span.job-type
+        = @candidate.name
+
+    %p.job-type
+      %b
+        %label#jobtype Phone:
+      %span.job-type
+        = @candidate.phone_number
+
+
+  .col-md-offset-1.col-md-10
+    %h2.job-title
+      = link_to @job.title, job_url(@job, :host=>'www.tomashjobs.com'), target: "_blank"
+    %small{style: "font-weight: normal; line-height: 1; color: #777777;"}
+      = link_to @job.company_name, url_with_protocol(@job.company_url), target: "_blank"
+      in
+      = @job.location
+
+    .col-md-12
+      - if @job.type_specified?
+        %p.job-type
+          %b
+            %label#jobtype Job type -
+          = quick_job_icon @job
+          %span.job-type
+            = @job.job_type
+            |
+          %label#jobtype Posted on
+          = "#{@job.created_at.strftime('%B %e')}"
+
+      %p
+        = md @job.description
+
+      .row.apply-job
+        .pa-box
+          %span.box-title
+            %b
+              To view more details
+          %p
+            = link_to @job.title, job_url(@job, :host=>'www.tomashjobs.com'), target: "_blank"

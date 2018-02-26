@@ -23,6 +23,8 @@
       ga('create', 'UA-4264346-10', 'auto');
       ga('send', 'pageview');
 
+    - if @is_admin
+      = hidden_field_tag 'is_admin', @is_admin
 
     .header.container.logo-container
       .row
@@ -33,7 +35,7 @@
     .container
       - flash.each do |name, message|
         - type = name.to_s == 'notice' ? 'success' : 'error'
-        = render 'shared/alert', type: type, highlight: '', text: message
+        = render 'shared/alert_job_action', type: type, highlight: '', text: message
 
       .row
         %form(method="get" action="/jobs" class="input-group stylish-input-group" data-remote="true")
@@ -66,20 +68,33 @@
         displayKey: 'title_and_location',
         source: engine.ttAdapter()
       }).on('typeahead:selected typeahead:autocompleted', function(e, datum) {
-          console.log('event', e, datum);
-          console.log("=== ", datum.title_and_location);
-          $('#st-search-input').val(datum.title_and_location);
+        $('#st-search-input').val(datum.title_and_location);
+        var is_admin = $("#is_admin").val();
+        if (is_admin === 'undefined' || is_admin !== 'true') {
           window.location = "/jobs?q=" + datum.title_and_location;
+        } else {
+          window.location = "/admin_jobs?q=" + datum.title_and_location;
+        }
       });
 
       $('#st-search-input').keypress(function (e) {
         if (e.which == 13) {
-            var keywords = $('#st-search-input').val();
+          var is_admin = $("#is_admin").val();
+          var keywords = $('#st-search-input').val();
+          if (is_admin === 'undefined' || is_admin !== 'true') {
             window.location = "/jobs?q=" + keywords;
+          } else {
+            window.location = "/admin_jobs?q=" + keywords;
+          }
         }
       });
 
       $('.search-button').on("click", function(e) {
+        var is_admin = $("#is_admin").val();
         var keywords = $('#st-search-input').val();
-        window.location = "/jobs?q=" + keywords;
+        if (is_admin === 'undefined' || is_admin !== 'true') {
+          window.location = "/jobs?q=" + keywords;
+        } else {
+          window.location = "/admin_jobs?q=" + keywords;
+        }
       });

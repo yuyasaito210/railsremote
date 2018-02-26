@@ -1,8 +1,9 @@
 .row
   .col-md-offset-1.col-md-10
     .well.bs-component.clearfix.form-newpost
-      %form#new_job.new_job{"accept-charset" => "UTF-8", :action => admin_jobs_path, :method => :post, :as => job, :enctype => "multipart/form-data"}
-        %input{:name => "_method", :type => "hidden", :value => "put"}
+      %form#new_job.new_job{"accept-charset" => "UTF-8", :action => admin_jobs_path, :method => :post}
+        %input{:name => "id", :type => "hidden", :value => job.id}
+        %input{:name => "_method", :type => "hidden", :value => "post"}
         %input{:name => "utf8", :type => "hidden", :value => "✓"}/
         %input{:name => "authenticity_token", :type => "hidden", :value => "CvHXz8XQMOlEbhFjFUbUqDJ+4nnjrYuikFFAscyNWVzfTLcmkc03gTaoph6PH5nZtwDu7pGOvhnReNdg7qj8xQ=="}/
         %input#token{:name => "token", :type => "hidden"}/

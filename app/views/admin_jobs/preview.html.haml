@@ -29,10 +29,10 @@
 
         %p= md @job.description
 
-      - job_edit_url = edit_from_json_jobs_path
-      - job_edit_method = 'post'
+      - admin_job_edit_url = edit_from_json_admin_jobs_path
+      - admin_job_edit_method = 'post'
 
-      %form{"accept-charset" => "UTF-8", :action => job_edit_url, :method => job_edit_method, :remote => true, :authenticity_token => true}
+      %form{"accept-charset" => "UTF-8", :action => admin_job_edit_url, :method => admin_job_edit_method, :remote => true, :authenticity_token => true}
         %input{:name => "edit_type", :type => "hidden", :value => "from_preview"}/
         %input{:name => "job", :type => "hidden", :value => @job.to_json}/
         %input{:name => "authenticity_token", :type => "hidden", :value => "CvHXz8XQMOlEbhFjFUbUqDJ+4nnjrYuikFFAscyNWVzfTLcmkc03gTaoph6PH5nZtwDu7pGOvhnReNdg7qj8xQ=="}/

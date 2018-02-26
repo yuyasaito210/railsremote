@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   	collection do
       get :autocomplete
       get :preview
+      post :edit_from_json
     end
   end
   resources :admin_jobs do
     collection do
       get :autocomplete
       get :preview
+      post :edit_from_json
     end
   	put :publish
   end

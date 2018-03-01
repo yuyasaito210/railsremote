@@ -489,3 +489,7 @@ form input.st-search-input {
 .swiftype-widget .autocomplete li.noResults {
   pointer-events: none;
 }
+
+.header.container.logo-container a {
+  z-index: 1;
+}

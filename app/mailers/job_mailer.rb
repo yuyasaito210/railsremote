@@ -8,23 +8,23 @@ class JobMailer < ApplicationMailer
   	@job = candidate.job
     @candidate = candidate
   	mail.attachments["resume.#{extract_extention(candidate.resume.to_s)}"] = File.read(candidate.resume.file.file) if candidate.resume
-    mail(to: @job.email, subject: "#{candidate.name} applied #{@job.title} job at #{@job.company_name} in #{@job.location}.")
+    mail(to: @job.email, subject: "#{candidate.name} applied for #{@job.title} job at #{@job.company_name} in #{@job.location}")
   end
 
   def apply_confirm_email(candidate)
   	@job = candidate.job
     @candidate = candidate
-  	mail(to: @candidate.email, subject: "Your application for the #{@job.title} job has been submitted successfully.")
+  	mail(to: @candidate.email, subject: "Your application for the #{@job.title} job has been submitted successfully")
   end
 
   def job_email(job)
   	@job = job
-    mail(to: @job.email, subject: "Job posted successfully | Tom Ash Jobs.")
+    mail(to: @job.email, subject: "Job posted successfully | Tom Ash Jobs")
   end
 
   def job_email_by_admin(job)
   	@job = job
-    mail(to: ENV['ADMIN_EMAIL'], subject: "Job posted successfully | Tom Ash Jobs.")
+    mail(to: ENV['ADMIN_EMAIL'], subject: "Job posted successfully | Tom Ash Jobs")
   end
 
   def extract_extention(file_name)

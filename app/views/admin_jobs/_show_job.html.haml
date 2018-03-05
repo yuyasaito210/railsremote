@@ -6,7 +6,7 @@
       - text = "#{@job.company_name} is hiring a #{@job.title}"
       = mail_to "", subject: text, body: "#{text}\n#{job_url(@job)}", class: "pull-right mail-new emailBtn smGlobalBtn" do
         %span
-      = link_to "http://twitter.com/intent/tweet?url=#{job_url(@job)}&text=#{text}&via=rails_remote", target: "_blank", class: "pull-right twitter-new twitterBtn twGlobalBtn" do
+      = link_to "http://twitter.com/intent/tweet?url=#{job_url(@job)}&text=#{text}", target: "_blank", class: "pull-right twitter-new twitterBtn twGlobalBtn" do
         %span
 
       %h2.job-title

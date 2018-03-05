@@ -20,7 +20,7 @@
       = link_to @job.title, job_url(@job, :host=>'www.tomashjobs.com'), target: "_blank"
     %small{style: "font-weight: normal; line-height: 1; color: #777777;"}
       = link_to @job.company_name, url_with_protocol(@job.company_url), target: "_blank"
-      in  
+      in
       = @job.location
 
     .col-md-12
@@ -48,7 +48,6 @@
 
           %span.box-title
             %b
-              To view more details 
+              To view more details
           %p
             = link_to @job.title, job_url(@job, :host=>'www.tomashjobs.com'), target: "_blank"
-

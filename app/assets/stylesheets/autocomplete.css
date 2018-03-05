@@ -27,6 +27,9 @@ form input.st-search-input {
   -o-border-radius: 3px;
   border-radius: 3px;
   text-align: left;
+  @media (max-width: 570px) {
+    font-family: "Helvetica Neue" !important;
+  }
 }
 
 .swiftype-widget .autocomplete ul {
@@ -42,6 +45,9 @@ form input.st-search-input {
   -o-border-radius: 3px;
   border-radius: 3px;
   text-align: left;
+  @media (max-width: 570px) {
+    font-family: "Helvetica Neue" !important;
+  }
 }
 
 .swiftype-widget .autocomplete li {
@@ -75,7 +81,7 @@ form input.st-search-input {
   border-top: 1px solid #145A93;
   border-bottom: 1px solid #086aa8;
   background-color: #fff;
-  
+
   -webkit-box-shadow: 0 1px 0 #69bdf3 inset;
   -moz-box-shadow: 0 1px 0 #69bdf3 inset;
   box-shadow: 0 1px 0 #69bdf3 inset;

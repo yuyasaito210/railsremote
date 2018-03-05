@@ -14,6 +14,9 @@ body {
   -o-background-size: cover;
   background-size: cover;
   font-family: "Lucida Sans Unicode" !important;
+  @media (max-width: 570px) {
+    font-family: "Helvetica Neue" !important;
+  }
 }
 
 body .container .well {
@@ -32,6 +35,9 @@ body .container .show_job {
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   font-family: "Lucida Sans Unicode" !important;
+  @media (max-width: 570px) {
+    font-family: "Helvetica Neue" !important;
+  }
 }
 
 #particles-js {
@@ -492,4 +498,10 @@ form input.st-search-input {
 
 .header.container.logo-container a {
   z-index: 1;
+}
+
+@media (max-width: 570px) {
+  #intercom-container {
+    display: none;
+  }
 }

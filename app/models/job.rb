@@ -41,7 +41,7 @@ class Job < ActiveRecord::Base
       if result
         suggestion_result = result.try(:suggestions)
         Rails.logger.info "=== suggestion_result: #{suggestion_result.inspect}"
-        
+
         results &= result if results
         results = result unless results
       end
@@ -82,7 +82,7 @@ class Job < ActiveRecord::Base
   end
 
   def to_param
-    "#{id}-remote-#{full_title.parameterize}"
+    "#{id}-#{full_title.parameterize}"
   end
 
   def type_specified?
@@ -98,7 +98,7 @@ class Job < ActiveRecord::Base
     self.as_json(
       only: [:id, :title, :job_type, :description, :location, :published]
     )
-  end 
+  end
 
 private
 

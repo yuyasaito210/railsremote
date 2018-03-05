@@ -9,7 +9,7 @@
 .job-title {
   //margin-bottom: 1.3em;
   padding-left: 15px;
-  font-size: 18px;
+  font-size: 21px;
   font-weight: bold;
 }
 small a {
@@ -19,12 +19,12 @@ small a {
 
 #jobtype {
   color: black !important;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: bold !important;
 }
 
 .job-type {
-  font-size: 12px;
+  font-size: 15px;
   color: gray
 }
 .push-down {
@@ -181,6 +181,9 @@ small a {
   font-weight: bold;
   color: black;
   font-size: 14px;
+  @media (max-width: 570px) {
+    font-family: "Helvetica Neue" !important;
+  }
 }
 .no-sep {
   border-bottom: 0 !important;

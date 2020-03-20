@@ -45,7 +45,7 @@ gem 'reverse_markdown'
 
 # gem 'rails-assets-bootstrap-material-design'
 # gem 'rails-assets-bootstrap', '~> 3.3.1'
-gem 'bootstrap-sass', '3.3.7'
+gem 'bootstrap-sass', '3.4.1'
 gem 'bootstrap-material-design'
 gem 'bootstrap-typeahead-rails'
 gem 'font-awesome-sass'

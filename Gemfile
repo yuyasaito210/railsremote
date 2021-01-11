@@ -36,7 +36,7 @@ gem 'jquery-rails', '~> 4.3.1'
 gem 'haml', '~> 5.0.1'
 gem 'sass', '~> 3.4.24'
 # Markdown parser
-gem 'redcarpet', '~> 3.4.0'
+gem 'redcarpet', '~> 3.5.1'
 gem 'rails_12factor', '~> 0.0.3'
 
 gem 'nokogiri'
